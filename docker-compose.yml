@@ -1,0 +1,44 @@
+# E:\BANK\PROJECT\SIGNLANG-APP\docker-compose.yml
+
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    restart: always
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+    volumes:
+      - ./models:/app/models
+      #- models_data:/app/models_data
+    ports:
+      - "3001:3001"
+
+  frontend_nginx:
+    build: ./nginx
+    restart: always
+    ports:
+      # <<<<<<<<<<<<<<<< แก้ไขตรงนี้: Map Port 80 และ 443 ของ Container ไปยัง Port 80 และ 443 ของ Host (Droplet)
+      - "80:80"   # สำหรับ HTTP (Certbot และ Redirect)
+      - "443:443" # สำหรับ HTTPS (SSL traffic)
+    volumes:
+      # <<<<<<<<<<<<<<<< เพิ่มบรรทัดนี้: Mount ไฟล์ nginx.conf จาก ./nginx/nginx.conf บน Host ไปยัง /etc/nginx/nginx.conf ภายใน Container
+      # นี่จะทำให้ Nginx ใช้ config ที่เราแก้ไขจากภายนอก
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/dhparam.pem:/etc/nginx/dhparam.pem:ro
+      # Mount โฟลเดอร์ build ของ Vue.js (frontend/dist) เข้าไปใน Nginx container
+      - ./frontend/dist:/usr/share/nginx/html:ro # :ro หมายถึง read-only (แนะนำ)
+
+      # แมปโฟลเดอร์ models จริง (บน Host) เข้าไปยัง path เดียวกันที่เราตั้งใน nginx.conf (/root/SIGNLANG-APP/models)
+      # - ./models:/root/SIGNLANG-APP/models:ro
+      # - ./models:/usr/share/nginx/html/models_data:ro
+      # - ./models:/app/models_data:ro
+
+      # <<<<<<<<<<<<<<<< เพิ่มบรรทัดเหล่านี้สำหรับ Certbot
+      # Mount โฟลเดอร์สำหรับเก็บ SSL Certificates และ config ของ Certbot
+      - /etc/letsencrypt:/etc/letsencrypt:ro # Certbot จะเขียน Certs ที่นี่
+      # Mount โฟลเดอร์สำหรับ Certbot HTTP-01 challenge (ต้องตรงกับ root ใน Nginx config)
+      - ./certbot/www:/var/www/certbot:ro
+    depends_on:
+      - backend

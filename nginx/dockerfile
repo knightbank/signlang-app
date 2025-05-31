@@ -1,0 +1,12 @@
+# E:\BANK\PROJECT\SIGNLANG-APP\nginx\Dockerfile
+FROM nginx:stable-alpine
+
+# Copy our custom Nginx configuration file into the container
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# We don't need to copy the Vue dist folder or the models folder here.
+# They will be mounted as volumes by docker-compose, which is more flexible.
+
+# Expose port 80 (HTTP)
+# This is mainly for internal Docker networking, Cloudflare Tunnel will route traffic here.
+EXPOSE 80
