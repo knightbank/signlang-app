@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>signlang-app — Training Reference</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --card: #fff;
+    --border: #e5e7eb;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --accent: #2563eb;
+    --good: #059669;
+    --warn: #d97706;
+    --bad: #dc2626;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Sarabun", "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    line-height: 1.55;
+  }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  h2 { font-size: 1.2rem; margin: 28px 0 10px; border-bottom: 2px solid var(--accent); padding-bottom: 4px; }
+  h3 { font-size: 1.0rem; margin: 18px 0 8px; color: var(--muted); }
+  .lead { color: var(--muted); margin: 0 0 18px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; margin: 12px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 0.92rem; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: middle; }
+  th { background: #f3f4f6; font-weight: 600; }
+  tr:hover td { background: #fafafa; }
+  .thai-char { font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.78rem; font-weight: 600; }
+  .badge-good { background: #d1fae5; color: var(--good); }
+  .badge-warn { background: #fef3c7; color: var(--warn); }
+  .badge-bad { background: #fee2e2; color: var(--bad); }
+  .badge-neutral { background: #e5e7eb; color: var(--text); }
+  code { background: #f3f4f6; padding: 1px 6px; border-radius: 4px; font-size: 0.88em; }
+  pre { background: #1f2937; color: #e5e7eb; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 0.85em; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .sample-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin: 12px 0; }
+  .sample { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 8px; text-align: center; }
+  .sample img { width: 100%; height: 120px; object-fit: contain; background: #f9fafb; border-radius: 4px; }
+  .sample-label { font-weight: 600; margin-top: 6px; font-size: 0.9rem; }
+  .sample-meta { font-size: 0.78rem; color: var(--muted); }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 10px 0; }
+  .stat { background: var(--card); border-left: 3px solid var(--accent); padding: 10px 14px; border-radius: 4px; }
+  .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: 0.82rem; color: var(--muted); }
+  .alert { border-left: 4px solid; padding: 10px 14px; border-radius: 4px; margin: 12px 0; }
+  .alert-warn { background: #fef3c7; border-color: var(--warn); }
+  .alert-info { background: #dbeafe; border-color: var(--accent); }
+  .alert-bad { background: #fee2e2; border-color: var(--bad); }
+  .chart-img { max-width: 100%; border: 1px solid var(--border); border-radius: 6px; }
+  details { background: #f9fafb; border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; margin: 8px 0; }
+  summary { font-weight: 600; cursor: pointer; }
+  .footer { margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<h1>🤟 signlang-app — Training Reference</h1>
+<p class="lead">เอกสารอ้างอิงสำหรับ Thai Sign Language web app — ดูว่าเทรนตัวอักษรไทยอะไรไปบ้าง รูปอยู่ไหน และมาจากแหล่งใด</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-value">10</div><div class="stat-label">Production classes</div></div>
+  <div class="stat"><div class="stat-value">2,548</div><div class="stat-label">Total training samples</div></div>
+  <div class="stat"><div class="stat-value">99.93%</div><div class="stat-label">Validation accuracy (Dense MLP)</div></div>
+  <div class="stat"><div class="stat-value">99.76%</div><div class="stat-label">GRU exp (sequence model)</div></div>
+</div>
+
+<div class="card">
+  <strong>🌐 Live URL:</strong> <a href="https://139-59-57-147.nip.io/predict" target="_blank">https://139-59-57-147.nip.io/predict</a> (production Dense MLP)<br>
+  <strong>🧪 Experimental:</strong> <a href="https://139-59-57-147.nip.io/exp/predict" target="_blank">https://139-59-57-147.nip.io/exp/predict</a> (GRU sequence model)
+</div>
+
+<h2>📋 Per-letter training summary</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Thai</th>
+      <th>ASL map</th>
+      <th>Samples</th>
+      <th>Source</th>
+      <th>Status</th>
+      <th>Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="thai-char">อ</span></td>
+      <td><code>A</code> (closed fist, thumb side)</td>
+      <td>250</td>
+      <td><a href="asl_unzip/asl_processed/train/A/">asl_unzip/train/A/</a></td>
+      <td><span class="badge badge-good">✓ verified</span></td>
+      <td>Chart-vs-chart compared (PMC vs NCO ASL)</td>
+    </tr>
+    <tr>
+      <td><span class="thai-char">บ</span></td>
+      <td><code>B</code> (open palm, fingers together)</td>
+      <td>298</td>
+      <td>
+        <a href="bor/">bor/</a> (48 Thai, Mendeley)<br>
+        + <a href="asl_unzip/asl_processed/train/B/">asl_unzip/train/B/</a> (250)
+      </td>
+      <td><span class="badge badge-good">✓ verified</span></td>
+      <td>Has actual Thai source (Mendeley One-Stage-TFS, CC BY 4.0)</td>
+    </tr>
+    <tr>
+      <td><span class="thai-char">ล</span></td>
+      <td><code>L</code> (thumb+index, L shape)</td>
+      <td>250</td>
+      <td><a href="asl_unzip/asl_processed/train/L/">asl_unzip/train/L/</a></td>
+      <td><span class="badge badge-good">✓ verified</span></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><span class="thai-char">ม</span></td>
+      <td><code>M</code> (closed fist, thumb on knuckles)</td>
+      <td>250</td>
+      <td><a href="asl_unzip/asl_processed/train/M/">asl_unzip/train/M/</a></td>
+      <td><span class="badge badge-bad">⚠ expert says wrong</span></td>
+      <td>ASL M too close to ASL S → expert says Thai ม should be "claw" not closed fist. Replacement planned (see plan file)</td>
+    </tr>
+    <tr>
+      <td><span class="thai-char">น</span></td>
+      <td><code>N</code> (closed fist, thumb on 2 fingers)</td>
+      <td>250</td>
+      <td><a href="asl_unzip/asl_processed/train/N/">asl_unzip/train/N/</a></td>
+      <td><span class="badge badge-good">✓ verified</span></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><span class="thai-char">ส</span></td>
+      <td><code>S</code> (closed fist, thumb front)</td>
+      <td>250</td>
+      <td><a href="asl_unzip/asl_processed/train/S/">asl_unzip/train/S/</a></td>
+      <td><span class="badge badge-good">✓ verified</span></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><span class="thai-char">ว</span></td>
+      <td><code>W</code> (3 fingers spread up)</td>
+      <td>250</td>
+      <td><a href="asl_unzip/asl_processed/train/W/">asl_unzip/train/W/</a></td>
+      <td><span class="badge badge-good">✓ verified</span></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><span class="thai-char">ย</span></td>
+      <td><code>Y</code> (thumb + pinky out)</td>
+      <td>250</td>
+      <td><a href="asl_unzip/asl_processed/train/Y/">asl_unzip/train/Y/</a></td>
+      <td><span class="badge badge-good">✓ verified</span></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><span class="thai-char">ร</span></td>
+      <td><code>R</code> (index + middle crossed)</td>
+      <td>250</td>
+      <td><a href="asl_unzip/asl_processed/train/R/">asl_unzip/train/R/</a></td>
+      <td><span class="badge badge-good">✓ verified by expert</span></td>
+      <td>Expert confirmed ASL R mapping (corrected an earlier theory)</td>
+    </tr>
+    <tr>
+      <td><span class="thai-char">จ</span></td>
+      <td><code>J</code> (motion sign — pinky trajectory)</td>
+      <td>250</td>
+      <td><a href="asl_unzip/asl_processed/train/J/">asl_unzip/train/J/</a></td>
+      <td><span class="badge badge-warn">🧪 negative result</span></td>
+      <td>จ is 2-stroke / motion — static-frame model cannot handle properly. Kept as documented negative-result for paper (motivation for GRU sequence model)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>📜 Reference handshape charts</h2>
+
+<h3>Thai fingerspelling chart (16 one-stroke consonants)</h3>
+<p class="lead">From Silanon (2017), PMC article 5611514, Figure 2. Used as the ground-truth visual for Thai↔ASL mapping decisions.</p>
+<img src="thai_fs_chart.jpg" alt="Thai fingerspelling chart" class="chart-img" style="max-width: 700px">
+<p><a href="thai_fs_chart.jpg" target="_blank">📂 Open full size</a></p>
+
+<h3>ASL alphabet chart</h3>
+<p class="lead">Standard ASL alphabet A-Z from NCO Inc, used for cross-language handshape comparison.</p>
+<p><a href="asl_chart.pdf" target="_blank">📄 Open PDF (asl_chart.pdf)</a></p>
+
+<h2>🖼️ Sample images per class</h2>
+<p class="lead">หนึ่งตัวอย่างต่อคลาส (เปิดโฟลเดอร์เพื่อดูเพิ่ม). ASL samples are gitignored — visible only on the local workspace that has run <code>download_asl.py</code>.</p>
+
+<h3>Thai บ — actual Thai source (Mendeley One-Stage-TFS)</h3>
+<div class="sample-grid">
+  <div class="sample"><img src="bor/bor10.jpg" alt="บ sample 1"><div class="sample-label">บ #1</div><div class="sample-meta">Mendeley TSL</div></div>
+  <div class="sample"><img src="bor/bor50.jpg" alt="บ sample 2"><div class="sample-label">บ #2</div><div class="sample-meta">Mendeley TSL</div></div>
+  <div class="sample"><img src="bor/bor100.jpg" alt="บ sample 3"><div class="sample-label">บ #3</div><div class="sample-meta">Mendeley TSL</div></div>
+</div>
+
+<h3>ASL samples (mapped to Thai labels in training)</h3>
+<div class="sample-grid">
+  <div class="sample"><img src="asl_unzip/asl_processed/train/A/P10_A_902.jpg" alt="ASL A → อ"><div class="sample-label">A → <span class="thai-char">อ</span></div><div class="sample-meta">closed fist</div></div>
+  <div class="sample"><img src="asl_unzip/asl_processed/train/B/P10_B_1000.jpg" alt="ASL B → บ"><div class="sample-label">B → <span class="thai-char">บ</span></div><div class="sample-meta">open palm</div></div>
+  <div class="sample"><img src="asl_unzip/asl_processed/train/L/P10_L_1000.jpg" alt="ASL L → ล"><div class="sample-label">L → <span class="thai-char">ล</span></div><div class="sample-meta">L shape</div></div>
+  <div class="sample"><img src="asl_unzip/asl_processed/train/M/P10_M_901.jpg" alt="ASL M → ม (WRONG)"><div class="sample-label">M → <span class="thai-char">ม</span> ⚠</div><div class="sample-meta">expert says wrong</div></div>
+  <div class="sample"><img src="asl_unzip/asl_processed/train/N/P10_N_1000.jpg" alt="ASL N → น"><div class="sample-label">N → <span class="thai-char">น</span></div><div class="sample-meta">fist + thumb-2</div></div>
+  <div class="sample"><img src="asl_unzip/asl_processed/train/S/P10_S_902.jpg" alt="ASL S → ส"><div class="sample-label">S → <span class="thai-char">ส</span></div><div class="sample-meta">fist + thumb front</div></div>
+  <div class="sample"><img src="asl_unzip/asl_processed/train/W/P10_W_1000.jpg" alt="ASL W → ว"><div class="sample-label">W → <span class="thai-char">ว</span></div><div class="sample-meta">3 fingers up</div></div>
+  <div class="sample"><img src="asl_unzip/asl_processed/train/Y/P10_Y_901.jpg" alt="ASL Y → ย"><div class="sample-label">Y → <span class="thai-char">ย</span></div><div class="sample-meta">thumb + pinky</div></div>
+  <div class="sample"><img src="asl_unzip/asl_processed/train/R/P10_R_1000.jpg" alt="ASL R → ร"><div class="sample-label">R → <span class="thai-char">ร</span></div><div class="sample-meta">crossed fingers</div></div>
+  <div class="sample"><img src="asl_unzip/asl_processed/train/J/P10_J_1000.jpg" alt="ASL J → จ (motion)"><div class="sample-label">J → <span class="thai-char">จ</span> 🧪</div><div class="sample-meta">motion sign</div></div>
+</div>
+
+<p class="lead" style="font-size: 0.85rem">หาก thumbnails ไม่ขึ้น แปลว่า <code>asl_unzip/</code> ยังไม่ถูก extract (ดู "How to reproduce" ด้านล่าง). The chart and bor/ images always work since they are git-tracked.</p>
+
+<h2>⚠️ Known issues</h2>
+
+<div class="alert alert-bad">
+  <strong>ม mapping wrong (per expert):</strong> ASL M (closed fist with thumb on 3 folded fingers) is too visually similar to ASL S — both are closed fists. Thai expert says ม should actually be a "claw" handshape. Replacement plan is in <code>elegant-conjuring-umbrella.md</code>.
+</div>
+
+<div class="alert alert-warn">
+  <strong>จ (ASL J) is a known limitation:</strong> ASL J is a motion sign (pinky-up handshape traced into a J in the air). Feeding static frames of the J trajectory into a single-frame Dense MLP cannot capture the motion — kept in the model intentionally as a <em>documented negative result</em> to motivate the GRU sequence model section of the paper.
+</div>
+
+<div class="alert alert-info">
+  <strong>Sample quantity asymmetry:</strong> All ASL-sourced classes have exactly 250 normalized landmarks; บ has 298 because Mendeley One-Stage-TFS provided 48 verified Thai samples on top of the ASL-HG baseline. The val accuracy headline is computed across all classes uniformly.
+</div>
+
+<h2>🛠️ How to view / reproduce</h2>
+
+<h3>เปิดดูรูปจริงบนเครื่อง local (Windows)</h3>
+<pre>start _tfs_dataset\bor                          # โฟลเดอร์ บ ของ Mendeley
+start _tfs_dataset\asl_unzip\asl_processed\train\M  # ASL M (ตัวที่ expert บอกว่าผิด)
+start _tfs_dataset\asl_unzip\asl_processed\train\J  # ASL J (motion — negative result)
+start _tfs_dataset\thai_fs_chart.jpg            # Thai 16 one-stroke chart
+start _tfs_dataset\asl_chart.pdf                # ASL A-Z chart</pre>
+
+<h3>Reproduce from scratch (collaborator workflow)</h3>
+<pre># 1. Re-download ASL-HG dataset (366 MB zip, gitignored)
+cd _tfs_dataset
+python download_asl.py
+unzip ASL_Processed_Images.zip -d asl_unzip
+
+# 2. Extract MediaPipe landmarks for the 8 base classes
+python extract_all.py             # → extracted.json (อ บ ล ม น ส ว ย)
+
+# 3. Add ร and จ
+python extract_add_ror.py         # → extracted_v2.json (+ร)
+python extract_add_jor.py         # → extracted_v3.json (+จ)
+
+# 4. Train Dense MLP (production)
+cd train_node
+npm install
+node train_v3.js                  # → trained_model_v3/
+
+# 5. Deploy — see _tfs_dataset/backups/ROLLBACK_GUIDE.md</pre>
+
+<h3>Inspect a specific model</h3>
+<pre>cat _tfs_dataset/backups/model-2026-06-04-prod-dense-8class-valacc9959/labels.json
+cat _tfs_dataset/backups/model-2026-06-04-prod-dense-8class-valacc9959/metrics.json</pre>
+
+<h2>📚 Related documents</h2>
+<ul>
+  <li><a href="../CLAUDE.md">CLAUDE.md</a> — project hard rules (signlang_env isolation, no guessing, production safety)</li>
+  <li><a href="README.md">_tfs_dataset/README.md</a> — workspace layout + branch + URL routing</li>
+  <li><a href="backups/README.md">backups/README.md</a> — model snapshot index + restore commands</li>
+  <li><a href="backups/ROLLBACK_GUIDE.md">backups/ROLLBACK_GUIDE.md</a> — operator runbook</li>
+  <li><a href="handshape_inventory.json">handshape_inventory.json</a> — 44-letter TSL handshape spec (verification pending)</li>
+</ul>
+
+<div class="footer">
+  Generated for the signlang-app handoff. Update this file whenever a class is added/replaced or a new dataset source enters the pipeline.
+</div>
+
+</body>
+</html>
