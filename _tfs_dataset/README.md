@@ -89,8 +89,7 @@ The big stuff is **gitignored** — `asl_unzip/`, `ASL_Processed_Images.zip` (36
 
 ## Environment
 
-Use **only** `signlang_env`. NEVER `pip install` into `deepquant_env` or any other env.
-See `CLAUDE.md` Rule 1 at the repo root.
+Use **only** `signlang_env`. NEVER `pip install` into `deepquant_env` or any other env on this machine — those are pinned for unrelated production scripts.
 
 ```bash
 conda create -y -n signlang_env python=3.11

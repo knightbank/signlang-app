@@ -31,6 +31,9 @@ Thumbs.db
 *.swp
 *.suo
 
+# ---------- Local-only notes ----------
+*.local.md
+
 # ---------- Dataset workspace (_tfs_dataset/) ----------
 # Heavy downloaded data — regenerable from scripts (download_*.py + Mendeley API)
 _tfs_dataset/asl_unzip/
