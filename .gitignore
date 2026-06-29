@@ -31,6 +31,10 @@ Thumbs.db
 *.swp
 *.suo
 
+# ---------- Local-only docs ----------
+# CLAUDE.md is the AI-agent project memo, kept on disk but not shared.
+CLAUDE.md
+
 # ---------- Dataset workspace (_tfs_dataset/) ----------
 # Heavy downloaded data — regenerable from scripts (download_*.py + Mendeley API)
 _tfs_dataset/asl_unzip/
