@@ -1,0 +1,15 @@
+{
+  "accuracy": 1,
+  "loss": 0.00036358836223371327,
+  "valAccuracy": 0.9975590109825134,
+  "valLoss": 0.02337799035012722,
+  "normalized": true,
+  "datasetSize": 2048,
+  "epochs": 60,
+  "baseModel": null,
+  "architecture": "GRU64x2-pseudoseq",
+  "sequenceLength": 15,
+  "inputDim": 63,
+  "bootstrappedFrom": "pseudo-sequences (replicate static frame + Gaussian noise σ=0.005)",
+  "sourcedFrom": "Mendeley One-Stage-TFS (บ) + Mendeley ASL-HG (others via mapped letter)"
+}

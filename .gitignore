@@ -1,0 +1,28 @@
+# ---------- Dependencies ----------
+node_modules/
+**/node_modules/
+
+# ---------- Editor / OS ----------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# ---------- Dataset workspace (_tfs_dataset/) ----------
+# Heavy downloaded data — regenerable from scripts (download_*.py + Mendeley API)
+_tfs_dataset/asl_unzip/
+_tfs_dataset/ASL_Processed_Images.zip
+_tfs_dataset/ASL_Raw_Images.zip
+_tfs_dataset/tfs.zip
+
+# Intermediate training outputs — regenerable from train_node/train_v*.js
+# (The final deployed snapshots live in _tfs_dataset/backups/ which IS tracked.)
+_tfs_dataset/trained_model/
+_tfs_dataset/trained_model_v2/
+_tfs_dataset/trained_model_v3/
+_tfs_dataset/trained_gru_model/
+
+# Throwaway debug samples
+_tfs_dataset/_sample/
+_tfs_dataset/test_bor100.jpg

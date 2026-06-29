@@ -1,0 +1,11 @@
+{
+  "accuracy": 0.9926754832267761,
+  "loss": 0.02915872260928154,
+  "valAccuracy": 0.9959316253662109,
+  "valLoss": 0.01585761457681656,
+  "normalized": true,
+  "datasetSize": 2048,
+  "epochs": 100,
+  "baseModel": null,
+  "sourcedFrom": "Mendeley One-Stage-TFS (บ) + Mendeley ASL-HG (others via mapped letter)"
+}

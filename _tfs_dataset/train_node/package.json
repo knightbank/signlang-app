@@ -1,0 +1,8 @@
+{
+  "name": "signlang-train",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@tensorflow/tfjs-node": "^4.22.0"
+  }
+}
