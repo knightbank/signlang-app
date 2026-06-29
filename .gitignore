@@ -10,8 +10,10 @@ frontend/dist-ssr/
 backend/.env
 # Live model artifacts (mirrored at _tfs_dataset/backups/ which IS tracked)
 backend/models/
-# But keep top-level structure visible:
-!backend/models/.gitkeep
+
+# ---------- Legacy nested-repo working copies (preserved as *_old) ----------
+frontend_old/
+backend_old/
 
 # ---------- Logs ----------
 *.log
@@ -28,6 +30,9 @@ pnpm-debug.log*
 Thumbs.db
 *.swp
 *.suo
+
+# ---------- Local-only notes ----------
+*.local.md
 
 # ---------- Dataset workspace (_tfs_dataset/) ----------
 # Heavy downloaded data — regenerable from scripts (download_*.py + Mendeley API)
