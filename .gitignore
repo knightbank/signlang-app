@@ -2,12 +2,32 @@
 node_modules/
 **/node_modules/
 
+# ---------- Frontend build output ----------
+frontend/dist/
+frontend/dist-ssr/
+
+# ---------- Backend ----------
+backend/.env
+# Live model artifacts (mirrored at _tfs_dataset/backups/ which IS tracked)
+backend/models/
+# But keep top-level structure visible:
+!backend/models/.gitkeep
+
+# ---------- Logs ----------
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
 # ---------- Editor / OS ----------
-.vscode/
+.vscode/*
+!.vscode/extensions.json
 .idea/
 .DS_Store
 Thumbs.db
 *.swp
+*.suo
 
 # ---------- Dataset workspace (_tfs_dataset/) ----------
 # Heavy downloaded data — regenerable from scripts (download_*.py + Mendeley API)

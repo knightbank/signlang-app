@@ -1,0 +1,26 @@
+# E:\BANK\PROJECT\SIGNLANG-APP\backend\Dockerfile
+FROM node:22-slim
+
+WORKDIR /app
+
+# Create necessary directories for models to ensure fs-extra can write to them
+# These paths will be mounted as a Docker Volume later
+RUN mkdir -p /app/models/dev /app/models/prod /app/models/archive
+
+# Copy package.json and package-lock.json (or yarn.lock) first
+# to leverage Docker layer caching for dependencies
+COPY package*.json ./
+
+# Install Node.js dependencies
+RUN npm install
+
+# Copy the rest of the backend application code
+COPY . .
+
+# Expose the port your Express server listens on (e.g., 3001)
+# This is mainly for documentation and internal Docker networking,
+# as Cloudflare Tunnel will not directly expose this port to the internet.
+EXPOSE 3001
+
+# Command to run your Express application
+CMD ["node", "index.js"]
